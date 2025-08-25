@@ -1,0 +1,23 @@
+name: build
+on:
+  workflow_call:
+
+jobs:
+  prepare-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: set-matrix
+        run: |
+          cat matrix.json >> $GITHUB_OUTPUT
+  build:
+    needs: prepare-matrix
+    name: ${{ matrix.os }} - ${{ matrix.arch }} - $${{ matrix.toolchain }}
+    runs-on: ${{ matrix.image }}
+    strategy:
+      fails-fast: false
+      matrix: ${{ fromJSON(needs.prepare-matrix.outputs.matrix) }}
+    steps:
+      - run: "echo Running on ${{ matrix.os }}"
