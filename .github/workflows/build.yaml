@@ -19,6 +19,7 @@ jobs:
     runs-on: ${{ matrix.image }}
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(needs.prepare-matrix.outputs.matrix) }}
+      matrix:
+        include: ${{ fromJSON(needs.prepare-matrix.outputs.matrix) }}
     steps:
       - run: "echo Running on ${{ matrix.os }}"
