@@ -15,11 +15,28 @@ jobs:
           echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
   build:
     needs: prepare-matrix
-    name: ${{ matrix.os }} - ${{ matrix.arch }} - $${{ matrix.toolchain }}
+    name: ${{ matrix.os }} - ${{ matrix.arch }} - ${{ matrix.toolchain }}
     runs-on: ${{ matrix.image }}
     strategy:
       fail-fast: false
       matrix:
         include: ${{ fromJSON(needs.prepare-matrix.outputs.matrix) }}
     steps:
-      - run: "echo Running on ${{ matrix.os }}"
+      - name: Clone
+        run: git clone https://github.com/webview/webview.git
+      - name: Unpack
+        if: ${{ runner.os != 'Windows' }}
+        run: |
+          rm -rf webview/.github webview/README.md
+          mv webview/* .
+      - name: Unpack (windows)
+        if: ${{ runner.os == 'Windows' }}
+        run: |
+          rd -r "webview/.github"
+          rm "webview/README.md"
+          mv webview/* .
+      - name: Setup
+        uses: ./github/actions/setup-env
+        with:
+          packages: ${{ matrix.packages }}
+      
