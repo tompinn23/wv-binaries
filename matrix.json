@@ -1,6 +1,6 @@
 [
     {"os": "linux", "image": "ubuntu-latest", "arch": "host", "toolchain": "gcc", "packages": "libgtk-4-dev libwebkitgtk-6.0-dev" },
-    {"os": "linux", "image": "ubuntu-latest", "arch": "host", "toolchain": "gcc", "packages": "libgtk-3-dev libwebkitgtk-4.1-dev" },
+    {"os": "linux", "image": "ubuntu-latest", "arch": "host", "toolchain": "gcc", "packages": "libgtk-3-dev libwebkit2gtk-4.1-dev" },
     {"os": "macos", "image": "macos-latest", "arch": "universal", "toolchain": "macos-llvm" },
     {"os": "windows", "image": "windows-latest", "arch": "x86_64", "toolchain": "msvc" },
     {"os": "windows", "image": "windows-latest", "arch": "arm64", "toolchain": "msvc" }
