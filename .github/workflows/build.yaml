@@ -36,7 +36,7 @@ jobs:
           rm "webview/README.md"
           mv webview/* .
       - name: Setup
-        uses: ./github/actions/setup-env
+        uses: ./.github/actions/setup-env
         with:
           packages: ${{ matrix.packages }}
       
